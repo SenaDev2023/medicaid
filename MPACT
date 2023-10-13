@@ -1,0 +1,21 @@
+//Medicaid Old code to PowerFX for HR assignments
+UpdateItem(CurrentItem, {NextAssnValue: 1})
+If(
+CurrentItem.AssnValue >= CurrentItem.NumberOFHREmployees,
+UpdateItem(CurrentItem, {NextAssnValue: 1}),
+
+ 
+
+else: SetVar(NextValue1, 1),
+
+ 
+
+UpdateItem(CurrentItem, {NextAssnValue: NextValue1})
+)
+UpdateItem(Assignments, {LastAssignee: CurrentItem.AssnValue, NextAssignee: CurrentItem.NextAssnValue})
+
+ 
+
+This code works by first checking if the current item's AssnValue is greater than or equal to the number of HR employees. 
+If it is, then the code updates the current item's NextAssnValue to 1. Otherwise, the code sets a variable called NextValue1 to 1 and then updates the current item's NextAssnValue to that value. 
+Finally, the code updates the Assignments table to set the LastAssignee field to the current item's AssnValue and the NextAssignee field to the current item's NextAssnValue.
