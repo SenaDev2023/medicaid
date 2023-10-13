@@ -1,0 +1,56 @@
+///Initialization: Sets up initial variables.
+Permission Changes: Alters permissions on the current item.
+Email Notifications: Sends emails to specific groups based on the outcome of the approval process.
+Workflow Termination: Stops the workflow and logs a completion message.
+Please note that this logic assumes certain variables (RequestApproved, Submitter, Subject, etc.) are set and available in the context of the workflow. 
+The logic might need further adjustment based on the specifics of your SharePoint setup and the data available in your workflow context.
+
+###############################################################################################################################################################
+
+Step 1: Set variables
+
+Set variable PayDiffURL to https://[YourTenantName].sharepoint.com/sites/mpact/_layouts/FormServer.aspx?XmlLocation=.
+Set variable PayDiffSourceURL to &Source=%2Fsites%2Fmpact%2FPay%2520Differential%2FForms%2FAllItems%2Easpx&DefaultItemOpen=1.
+Step 2: Impersonation step - Run workflow as author
+
+Impersonate: Author (or any other user with permission to approve differential pay requests).
+Modify permissions: Replace READ and CONTRIBUTE permissions on the current item for the HR EMPLOYEES group with the CREATED BY user.
+Send email: Send an email to the TrainingandPDGroup group, with the subject [Tasks] Change differential pay request from [%Current Item:Submitter%].
+Wait for approval: Wait for the RequestApproved field to equal 1.
+If the request is approved:
+Send an email to the requester with the subject Your [%CurrentItem:Subject%] request has been approved by HR.
+If the request is denied:
+Send an email to the requester with the subject Your [%CurrentItem:Subject%] request has been denied by HR.
+Step 3: Impersonation step - Run workflow as workflow author
+
+Impersonate: Workflow author.
+Modify permissions: Replace READ permissions on the current item for the Created By user with the TrainingandPDGroup group.
+Stop workflow: Stop the workflow and log Pay Differenntial WF Complete.
+To create this workflow in Power Automate:
+
+Go to Power Automate and click Create.
+
+Select Automated cloud flow.
+
+Give your workflow a name and description, and then select Create.
+
+Add the following steps to your workflow:
+
+Set variable: Set the PayDiffURL and PayDiffSourceURL variables as described above.
+Impersonate: Impersonate the author user.
+Modify permissions: Replace the permissions on the current item as described above.
+Send email: Send an email to the TrainingandPDGroup group as described above.
+Wait for approval: Wait for the RequestApproved field to equal 1.
+Send email: Send an email to the requester as described above, depending on whether the request was approved or denied.
+Impersonate: Impersonate the workflow author.
+Modify permissions: Replace the permissions on the current item as described above.
+Stop workflow: Stop the workflow and log Pay Differenntial WF Complete.
+Click Save.
+
+Click Test to test your workflow.
+
+Once you are satisfied with your workflow, click Turn on.
+
+Your workflow will now run whenever a new differential pay request is created.
+
+
