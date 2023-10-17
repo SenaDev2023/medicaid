@@ -31,13 +31,18 @@ Email 1:
    Supervisor: [%Current Item: Immediate Supervisor%]
    Divison: [%Current Item: Dvision%]
 
+//Impersonation Step
+Replace: Contribute: Read of Item in Current Item {uSERS: HR EMPLOYEES; NAME}
 
-Click Submit link 
+//Click Submit link 
 {variables('DeathURL') & " " & CurrentItem.'URL Path' & variables('DeathSourceURL')}
 
 
 //Impersonation Step
 Replace(Read)of Item {CurrentItem: USER: HR Employees, Permission Read}
 
+Stop workflow and lof DeathSeparationWF; complete
+
+###################################################################
 
 
