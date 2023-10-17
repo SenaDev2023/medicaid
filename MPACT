@@ -1,3 +1,11 @@
+
+Death Sep. Workflow
+
+Step One// sets variables
+Set VAR: DeathURL to /sites/mpact/_layouts/FormServer.aspx?XmlLocation=
+then VAR: DeathSourceURL to  &Source=%2Fsites%2Fmpact%2FDeath%2520Separation%2FForms%2FAllItems%2Easpx&DefaultItemOpen=1
+
+
 //Medicaid Old code to PowerFX for HR assignments
 UpdateItem(CurrentItem, {NextAssnValue: 1})
 If(
