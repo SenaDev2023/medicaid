@@ -23,6 +23,11 @@ elif request['MemoStatus'] == 'Accepted':
 
 processed_requests.append(request)
 
+//  Check the FinanceStatus and Processed fields of the request object.
+    If the FinanceStatus is one of Pending, Revision Needed, or Accepted and the Processed field is not Yes, then the request is added to the awaiting_action_requests list.
+    If the MemoStatus field is Accepted, then the request is added to the processed_requests list.
+    Otherwise, the request is added to the ready_to_be_processed_requests list.
+
 Render the homepage with the three views
 
 render_homepage(ready_to_be_processed_requests, awaiting_action_requests, processed_requests)
