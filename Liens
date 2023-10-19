@@ -9,11 +9,20 @@ processed_requests = []
 
 for request in requests:
 if request['Processed'] != 'Yes' and request['FormStatus'] == 'Request Approved':
+// request['Processed'] != 'Yes': "The request has not yet been processed."
+//request['FormStatus'] == "'Request Approved': The request has been approved."
+//If both conditions are met, then the request is ready to be processed. This is because the request has been approved, but it has not yet been processed.
+
 ready_to_be_processed_requests.append(request)
+
 elif request['FinanceStatus'] in ['Pending', 'Revision Needed', 'Accepted'] and request['Processed'] != 'Yes':
+
 awaiting_action_requests.append(request)
+
 elif request['MemoStatus'] == 'Accepted':
+
 processed_requests.append(request)
+
 Render the homepage with the three views
 
 render_homepage(ready_to_be_processed_requests, awaiting_action_requests, processed_requests)
