@@ -38,3 +38,49 @@ This pseudocode assumes that the following functions are available:
     render_homepage(): Renders the homepage with the three views.
 
 The render_homepage() function would need to be implemented to generate the HTML for the three views, and to populate the views with the filtered requests.
+
+
+###################################################################################################################################################################
+C#
+// Get all liens requests for checks memos
+var requests = GetAllLiensRequestsForChecksMemos();
+
+// Filter requests for each view
+var readyToBeProcessedRequests = new List<LienRequest>();
+var awaitingActionRequests = new List<LienRequest>();
+var processedRequests = new List<LienRequest>();
+
+foreach (var request in requests)
+{
+    if (request.Processed != "Yes" && request.FormStatus == "Request Approved")
+    {
+        readyToBeProcessedRequests.Add(request);
+    }
+    else if (request.FinanceStatus == "Pending" || request.FinanceStatus == "Revision Needed" || request.FinanceStatus == "Accepted" && request.Processed != "Yes")
+    {
+        awaitingActionRequests.Add(request);
+    }
+    else if (request.MemoStatus == "Accepted")
+    {
+        processedRequests.Add(request);
+    }
+}
+
+// Render the homepage with the three views
+RenderHomepage(readyToBeProcessedRequests, awaitingActionRequests, processedRequests);
+
+Use code with caution. Learn more
+
+This code assumes that the following classes are available:
+
+    LienRequest: A class that represents a lien request.
+    GetAllLiensRequestsForChecksMemos(): A method that returns a list of all liens requests for checks memos.
+    RenderHomepage(): A method that renders the homepage with the three views.
+
+The GetAllLiensRequestsForChecksMemos() and RenderHomepage() methods would need to be implemented to meet the specific needs of your organization.
+
+Here is an example of how the GetAllLiensRequestsForChecksMemos() method could be implemented:
+
+
+
+
