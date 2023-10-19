@@ -1,1 +1,26 @@
+Get all liens requests for checks memos // pseu·do·code 
 
+requests = get_all_liens_requests_for_checks_memos()
+Filter requests for each view
+
+ready_to_be_processed_requests = []
+awaiting_action_requests = []
+processed_requests = []
+
+for request in requests:
+if request['Processed'] != 'Yes' and request['FormStatus'] == 'Request Approved':
+ready_to_be_processed_requests.append(request)
+elif request['FinanceStatus'] in ['Pending', 'Revision Needed', 'Accepted'] and request['Processed'] != 'Yes':
+awaiting_action_requests.append(request)
+elif request['MemoStatus'] == 'Accepted':
+processed_requests.append(request)
+Render the homepage with the three views
+
+render_homepage(ready_to_be_processed_requests, awaiting_action_requests, processed_requests)
+
+This pseudocode assumes that the following functions are available:
+
+    get_all_liens_requests_for_checks_memos(): Returns a list of all liens requests for checks memos.
+    render_homepage(): Renders the homepage with the three views.
+
+The render_homepage() function would need to be implemented to generate the HTML for the three views, and to populate the views with the filtered requests.
