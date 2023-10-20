@@ -82,5 +82,29 @@ The GetAllLiensRequestsForChecksMemos() and RenderHomepage() methods would need 
 Here is an example of how the GetAllLiensRequestsForChecksMemos() method could be implemented:
 
 
+###################################################################################################################################################
+Variables: 
+FormID
+MemoURL
+RelMemoDesc
+MemoDesc
+DocType
+FormURL
+FormID2
+MemoID
+EditMemoURL
+Form DispURL
+EditMemoURL2
+FormDesc
+RelFormDesc
+DeniedFormURL
+AddCheckNo
+CheckNoDesc
+RelCheckURL
+EditRequest
+FormEditURL
+
+
+
 
 
