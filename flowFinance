@@ -1,1 +1,7 @@
+Check to see if the lien request has been approved and processed.
+condition ()
+If the lien request has been approved and processed, send an email to the finance team requesting approval for the loan.
 
+Wait for a response from the finance team. (wait for approval) 
+If the finance team approves the loan, send an email to the borrower notifying them of the approval.
+If the finance team declines the loan, send an email to the borrower notifying them of the denial.
