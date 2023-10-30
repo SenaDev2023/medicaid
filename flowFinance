@@ -1,5 +1,11 @@
 Check to see if the lien request has been approved and processed.
 condition ()
+
+Form Statuses – Waiting for supervisor approval, Request Approved, and Request Denied
+Finance Statuses – Pending, Accepted, and Revision Needed
+Memo Statuses – matches Finance Status; set in workflow; 
+
+
 If the lien request has been approved and processed, send an email to the finance team requesting approval for the loan.
 
 Wait for a response from the finance team. (wait for approval) 
