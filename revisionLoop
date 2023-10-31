@@ -1,0 +1,32 @@
+
+workflow using Microsoft Power Automate that involves a "do until" loop for finance revision after approval from a supervisor. Here's how you can set up this workflow:
+
+1. **Trigger:**
+   - Start the workflow with an appropriate trigger. For example, you can use a "When an item is created or modified" trigger if you're working with a SharePoint list.
+
+2. **Initialize Variable:**
+   - Initialize a Boolean variable, say `isRevisionSent`, and set its initial value to `false`.
+
+3. **Do Until Loop:**
+   - Add a "Do Until" loop in your flow.
+   - Set the condition of the loop to run until `isRevisionSent` equals `true`.
+
+4. **Approval Step:**
+   - Inside the "Do Until" loop, add an approval action where the supervisor approves the request.
+   - You can use the "Start an approval" action in Power Automate.
+   - Wait for the approval response.
+
+5. **Condition:**
+   - After the approval action, add a condition to check if the supervisor approved the request.
+   - If the approval is granted, proceed to the finance revision process. If not, you might want to notify the requester or take appropriate actions based on your requirements.
+
+6. **Finance Revision:**
+   - Within the "If Yes" branch of the condition (if the approval is granted), perform the necessary finance revision tasks.
+
+7. **Update Variable:**
+   - After the finance revision is completed, set the `isRevisionSent` variable to `true` to exit the "Do Until" loop.
+
+8. **Completion Actions (Optional):**
+   - Add any actions that need to be performed after the finance revision is completed. For example, you can send a confirmation email, update a status field in your SharePoint list, or log the revision completion in another system.
+
+Remember, the specific actions and conditions might vary based on your exact requirements and the systems you're integrating with. Make sure to configure the actions in your Power Automate flow accordingly.
