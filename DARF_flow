@@ -225,4 +225,89 @@ Actions:
     Send email: Send an email to the newRequestRejectedBy email address with the following content:
 
         Subject: Data Analysis Request Rejected
+//
+
+Validate form: Validate the data entered in the form to ensure all required fields are completed and all data is entered correctly.
+
+Route request: Determine the routing path for the request based on the request type and the user's role.
+
+Assign request: Assign the request to the next user in the approval chain.
+
+Send notification: Send an email notification to the assigned user informing them of the new request.
+
+Approve or reject request: The assigned user reviews the request and either approves it or rejects it.
+
+Update request status: Update the status of the request to reflect the approval or rejection decision.
+
+Notify requester: Send an email notification to the requester informing them of the approval or rejection decision.
+
+If request approved:
+
+    If all fields are completed, create a read-only version of the form.
+    If all fields are not completed, route the request back to the previous user for further action.
+
+If request rejected:
+
+    Send an email notification to the requester explaining the reason for the rejection.
+    Close the request.
+
+End Event: Request is completed or rejected.
+
+//draft3
+
+Trigger: When a new item is created in the Data Analysis Request list
+
+Actions:
+
+    Get item: Get the details of the new item from the Data Analysis Request list.
+
+    Extract variables: Extract the following variables from the item:
+        requesterName
+        requestTitle
+        requestDetails
+        assignedTo
+        status
+
+    Send email: Send an email to the assignedTo user with the following content:
+
+        Subject: Data Analysis Request Assigned to You
+        Body:
+        > Dear [Assigned To Name],
+
+     > A new data analysis request has been assigned to you. Please review the request and take the necessary action.
+
+     > Sincerely,
+     > Data Analysis Team
+
+    Conditional Branch: Check the value of the status variable.
+        If status is equal to Approved:
+
+            Update item: Update the status variable to Completed and save the item to the Data Analysis Request list.
+
+            Send email: Send an email to the requesterName user with the following content:
+
+                Subject: Data Analysis Request Approved
+                Body:
+                > Dear [Requester Name],
+
+              > Your data analysis request has been approved. Please review the results and let us know if you have any questions.
+
+              > Sincerely,
+              > Data Analysis Team
+
+        Otherwise:
+            Continue: Proceed to the next step.
+
+    Send email: Send an email to the requesterName user with the following content:
+
+        Subject: Data Analysis Request Status Update
+        Body:
+        > Dear [Requester Name],
+
+     > Your data analysis request is currently in progress. Please review the status of your request in the dashboard.
+
+     > Sincerely,
+     > Data Analysis Team
+
+    Update item: Update the lastModifiedDate variable to the current date and time and save the item to the Data Analysis Request list.
 
