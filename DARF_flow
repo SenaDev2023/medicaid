@@ -1,0 +1,228 @@
+Triggers:
+
+    A new item is created in a SharePoint list named "Data Analytics Request Form".
+
+Actions:
+
+    Initialize variables:
+        Create a variable named itemName and set it to the current item's name.
+        Create a variable named edit and set it to false.
+        Create a variable named editRequest and set it to null.
+        Create a variable named emailToNewRequest and set it to the current item's "Requestor Email" field.
+        Create a variable named view and set it to the current item's "View" field.
+        Create a variable named rejectionTo and set it to the current item's "Rejection To" field.
+        Create a variable named emailonSubmission and set it to the current item's "Email on Submission" field.
+        Create a variable named ThruFinanceEmail and set it to the current item's "Thru Finance Email" field.
+        Create a variable named commentsForNewRequestRejected and set it to the current item's "Comments for New Request Rejected" field.
+        Create a variable named newRequestRejectedBy and set it to the current item's "New Request Rejected By" field.
+        Create a variable named approverForNewRequest and set it to the current item's "Approver For New Request" field.
+        Create a variable named rejectedByPerson and set it to the current item's "Rejected By Person" field.
+        Create a variable named requestRejectedByTitle and set it to the current item's "Request Rejected By Title" field.
+        Create a variable named rejFinanceMail and set it to the current item's "Rej Finance Mail" field.
+        Create a variable named time and set it to the current date and time.
+        Create a variable named substring and set it to the current item's "Request ID" field.
+        Create a variable named adminEdit and set it to false.
+        Create a variable named validationSupervisor and set it to false.
+
+    Check if edit:
+        If the edit variable is true, skip to step 8.
+
+    Send email to new request:
+        Send an email to the emailToNewRequest variable with the following content:
+
+            Subject: Data Analysis Request Received
+
+            Body:
+            Dear [Requestor Name],
+
+            Your data analysis request has been received and is currently being reviewed. We will contact you soon with an update.
+
+            Thank you for your submission.
+
+            Sincerely,
+            The Data Analytics Team
+
+    If view is 'Submit':
+        If the view variable is equal to "Submit", skip to step 6.
+
+    If view is 'Save as Draft':
+        If the view variable is equal to "Save as Draft", skip to step 13.
+
+    Send email to approver:
+        Send an email to the approverForNewRequest variable with the following content:
+
+            Subject: Data Analysis Request Approval Required
+
+            Body:
+            Dear [Approver Name],
+
+            A data analysis request has been submitted for your approval. Please review the request and let us know if you approve or reject it.
+
+            To view the request, please click on the following link: [Request Link]
+
+            Thank you for your time.
+
+            Sincerely,
+            The Data Analytics Team
+
+    Wait for approver response:
+        Wait for the approver to respond to the email.
+        If the approver approves the request, skip to step 9.
+        If the approver rejects the request, skip to step 11.
+
+    Send email to requester:
+        Send an email to the emailToNewRequest variable with the following content:
+
+            Subject: Data Analysis Request Approved
+
+            Body:
+            Dear [Requestor Name],
+
+            Your data analysis request has been approved. We will begin work on your request shortly.
+
+            Thank you for your submission.
+
+            Sincerely,
+            The Data Analytics Team
+
+    Process data analysis request:
+        Perform the data analysis requested by the requester.
+        Update the current item with the results of the data analysis.
+
+    Send email to requester with results:
+        Send an email to
+
+
+/// SecondDraft
+Workflow Name: Process Data Analysis Request
+
+Trigger: When a new item is created in the Data Analytics Request form list
+
+Actions:
+
+    Get item: Get the details of the new item from the Data Analytics Request form list.
+
+    Extract variables: Extract the following variables from the item:
+        itemName
+        edit
+        editRequest
+        emailToNewRequest
+        view
+        rejectionTo
+        emailonSubmission
+        ThruFinanceEmail
+        commentsForNewRequestRejected
+        newRequestRejectedBy
+        approverForNewRequest
+        rejectedByPerson
+        requestRejectedByTitle
+        rejFinanceMail
+        time
+        substring
+        adminEdit
+        validationSupervisor
+
+    Conditional Branch: Check the value of the edit variable.
+
+        If edit is equal to true:
+
+            Send email: Send an email to the editRequest email address with the following content:
+
+                Subject: Data Analysis Request Update
+                Body:
+                > Dear [Recipient Name],
+
+              > Your data analysis request has been updated. Please review the updated request and approve or reject it.
+
+              > Sincerely,
+              > Data Analytics Team
+
+            Update item: Update the edit variable to false and save the item to the Data Analytics Request form list.
+
+        Otherwise:
+            Continue: Proceed to the next step.
+
+    Conditional Branch: Check the value of the view variable.
+
+        If view is equal to true:
+
+            Send email: Send an email to the emailToNewRequest email address with the following content:
+
+                Subject: New Data Analysis Request
+                Body:
+                > Dear [Recipient Name],
+
+              > A new data analysis request has been submitted. Please review the request and provide your feedback.
+
+              > Sincerely,
+              > Data Analytics Team
+
+            Update item: Update the view variable to false and save the item to the Data Analytics Request form list.
+
+        Otherwise:
+            Continue: Proceed to the next step.
+
+    Conditional Branch: Check the value of the rejectionTo variable.
+
+        If rejectionTo is not equal to null:
+
+            Send email: Send an email to the rejectionTo email address with the following content:
+
+                Subject: Data Analysis Request Rejected
+                Body:
+                > Dear [Recipient Name],
+
+              > Your data analysis request has been rejected. Please review the comments from the rejecter and resubmit the request if necessary.
+
+              > Sincerely,
+              > Data Analytics Team
+
+            Update item: Update the rejectionTo variable to null and save the item to the Data Analytics Request form list.
+
+        Otherwise:
+            Continue: Proceed to the next step.
+
+    Send email: Send an email to the emailonSubmission email address with the following content:
+
+        Subject: Data Analysis Request Submitted
+        Body:
+        > Dear [Recipient Name],
+
+     > A new data analysis request has been submitted. Please review the request and approve or reject it.
+
+     > Sincerely,
+     > Data Analytics Team
+
+    Conditional Branch: Check the value of the ThruFinanceEmail variable.
+
+        If ThruFinanceEmail is equal to true:
+
+            Send email: Send an email to the rejFinanceMail email address with the following content:
+
+                Subject: Data Analysis Request Rejected
+                Body:
+                > Dear [Recipient Name],
+
+              > Your data analysis request has been rejected. Please review the comments from the rejecter and resubmit the request if necessary.
+
+              > Sincerely,
+              > Data Analytics Team
+
+        Otherwise:
+            Continue: Proceed to the next step.
+
+    Send email: Send an email to the commentsForNewRequestRejected email address with the following content:
+
+        Subject: Data Analysis Request Rejected
+        Body:
+        > Dear [Recipient Name],
+
+     > Your data analysis request has been rejected. Please review the comments from the rejecter and resubmit the request if necessary.
+
+     > Sincerely,
+     > Data Analytics Team
+
+    Send email: Send an email to the newRequestRejectedBy email address with the following content:
+
+        Subject: Data Analysis Request Rejected
+
